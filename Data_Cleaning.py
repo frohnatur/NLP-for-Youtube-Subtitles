@@ -1,6 +1,10 @@
 import pandas as pd
 import re
 import string
+import pickle
+#import nltk
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CountVectorizer
 
 HandOfBloodSubtitles = ""
 PietSmietSubtitles = ""
@@ -30,14 +34,25 @@ def clean_text(text):
     text = text.strip()
     return text
 
-cleaning = lambda x: clean_text(x)
-
-data_clean = pd.DataFrame(data.subtitles.apply(cleaning))
-data_clean
+data_clean = pd.DataFrame(data.subtitles.apply(lambda x: clean_text(x)))
 
 with open('test4.txt', 'w', encoding='utf-8') as file:
     file.write(data_clean.iloc[0,0])
 
 print(data)
 print(data_clean)
+
+#nltk.download('stopwords')
+german_stop_words = stopwords.words('german')
+
+cv = CountVectorizer(stop_words=german_stop_words)
+data_cv = cv.fit_transform(data_clean.subtitles)
+data_dtm = pd.DataFrame(data_cv.toarray(), columns=cv.get_feature_names())
+data_dtm.index = data_clean.index
+
+print(data_dtm)
+
+data_clean.to_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
+data_dtm.to_pickle("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix.pkl")
+pickle.dump(cv, open("Corpus_Dokument-Term_Matrix/Count_Vektorizer.pkl", "wb"))
 
