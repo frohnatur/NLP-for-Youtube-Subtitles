@@ -2,24 +2,30 @@ import pandas as pd
 import re
 import string
 import pickle
-#import nltk
+# import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 
 HandOfBloodSubtitles = ""
 PietSmietSubtitles = ""
+MaximSubtitles = ""
 
-for i in range(1,41):
+for i in range(1, 41):
     with open("HandOfBloodSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
         text = file.read()
     HandOfBloodSubtitles += text
 
-for i in range(1,112):
+for i in range(1, 112):
     with open("PietSmietSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
         text = file.read()
     PietSmietSubtitles += text
 
-data = {"HandOfBlood" : HandOfBloodSubtitles, "PietSmiet" : PietSmietSubtitles}
+for i in range(1, 46):
+    with open("MaximSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
+        text = file.read()
+    MaximSubtitles += text
+
+data = {"HandOfBlood": HandOfBloodSubtitles, "PietSmiet": PietSmietSubtitles, "Maxim": MaximSubtitles}
 data = pd.DataFrame.from_dict(data, orient="index")
 data.columns = ["subtitles"]
 
@@ -34,15 +40,16 @@ def clean_text(text):
     text = text.strip()
     return text
 
+
 data_clean = pd.DataFrame(data.subtitles.apply(lambda x: clean_text(x)))
 
 with open('test4.txt', 'w', encoding='utf-8') as file:
-    file.write(data_clean.iloc[0,0])
+    file.write(data_clean.iloc[0, 0])
 
 print(data)
 print(data_clean)
 
-#nltk.download('stopwords')
+# nltk.download('stopwords')
 german_stop_words = stopwords.words('german')
 
 cv = CountVectorizer(stop_words=german_stop_words)
@@ -55,4 +62,3 @@ print(data_dtm)
 data_clean.to_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
 data_dtm.to_pickle("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix.pkl")
 pickle.dump(cv, open("Corpus_Dokument-Term_Matrix/Count_Vektorizer.pkl", "wb"))
-
