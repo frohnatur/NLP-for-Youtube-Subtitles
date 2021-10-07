@@ -37,25 +37,3 @@ def get_video_subtitles(video_ids, directory):
 
         with open(directory + '/video' + str(count) + '.txt', 'w', encoding='utf-8') as file:
             file.write(formatted)
-
-# video_transcript1 = YouTubeTranscriptApi.get_transcript('xvqsFTUsOmc', languages=['en'])
-# video_transcript2 = YouTubeTranscriptApi.get_transcript('44atyNUpAmY', languages=['de'])
-# video_transcript3 = YouTubeTranscriptApi.get_transcript('Ljcz4tA101U', languages=['de'])
-
-# formatter = TextFormatter()
-# formatted1 = formatter.format_transcript(video_transcript2)
-# formatted2 = formatter.format_transcript(video_transcript1)
-# formatted3 = formatter.format_transcript(video_transcript3)
-
-# with open('test1.txt', 'w', encoding='utf-8') as file1:
-# file1.write(formatted1)
-
-# with open('test2.txt', 'w', encoding='utf-8') as file2:
-# file2.write(formatted2)
-
-# with open('test3.txt', 'w', encoding='utf-8') as file3:
-# file3.write(formatted3)
-
-
-# print(video_transcript1)
-# print(video_transcript2)
