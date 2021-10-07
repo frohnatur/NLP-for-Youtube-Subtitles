@@ -64,7 +64,7 @@ for lp in list_pieces:
 
 plt.rcParams['figure.figsize'] = [10, 8]
 
-for index, comedian in enumerate(data.index):
+for index, creator in enumerate(data.index):
     plt.subplot(3, 4, index + 1)
     plt.plot(polarity_subtitles[index])
     plt.plot(np.arange(0, 10), np.zeros(10))
