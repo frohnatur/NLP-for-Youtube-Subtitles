@@ -81,7 +81,7 @@ for creator in data.columns:
     uniques = data[creator].to_numpy().nonzero()[0].size
     unique_list.append(uniques)
 
-creators = ["HandOfBlood", "PietSmiet", "Maxim"]
+creators = ["HandOfBlood", "PietSmiet", "Maxim", "GrummelFritz"]
 
 data_words = pd.DataFrame(list(zip(creators, unique_list)), columns=['creator', 'unique_words'])
 data_unique_sort = data_words.sort_values(by='unique_words', ascending=False)

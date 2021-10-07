@@ -9,6 +9,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 HandOfBloodSubtitles = ""
 PietSmietSubtitles = ""
 MaximSubtitles = ""
+GrummelFritzSubtitles = ""
 
 for i in range(1, 41):
     with open("HandOfBloodSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
@@ -25,7 +26,13 @@ for i in range(1, 46):
         text = file.read()
     MaximSubtitles += text
 
-data = {"HandOfBlood": HandOfBloodSubtitles, "PietSmiet": PietSmietSubtitles, "Maxim": MaximSubtitles}
+for i in range(1, 24):
+    with open("GrummelFritzSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
+        text = file.read()
+    GrummelFritzSubtitles += text
+
+data = {"HandOfBlood": HandOfBloodSubtitles, "PietSmiet": PietSmietSubtitles, "Maxim": MaximSubtitles,
+        "GrummelFritz": GrummelFritzSubtitles}
 data = pd.DataFrame.from_dict(data, orient="index")
 data.columns = ["subtitles"]
 
@@ -62,3 +69,4 @@ print(data_dtm)
 data_clean.to_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
 data_dtm.to_pickle("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix.pkl")
 pickle.dump(cv, open("Corpus_Dokument-Term_Matrix/Count_Vektorizer.pkl", "wb"))
+
