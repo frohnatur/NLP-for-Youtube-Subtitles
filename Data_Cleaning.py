@@ -11,22 +11,22 @@ PietSmietSubtitles = ""
 MaximSubtitles = ""
 GrummelFritzSubtitles = ""
 
-for i in range(1, 41):
+for i in range(0, 41):
     with open("HandOfBloodSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
         text = file.read()
     HandOfBloodSubtitles += text
 
-for i in range(1, 112):
+for i in range(0, 112):
     with open("PietSmietSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
         text = file.read()
     PietSmietSubtitles += text
 
-for i in range(1, 46):
+for i in range(0, 46):
     with open("MaximSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
         text = file.read()
     MaximSubtitles += text
 
-for i in range(1, 24):
+for i in range(0, 24):
     with open("GrummelFritzSubtitles/video" + str(i) + ".txt", encoding="utf-8") as file:
         text = file.read()
     GrummelFritzSubtitles += text
