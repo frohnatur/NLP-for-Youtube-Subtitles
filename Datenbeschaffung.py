@@ -39,7 +39,7 @@ def get_video_subtitles(video_ids, directory):
         count += 1
 
 def get_video_statistics(video_ids):
-    youtube = googleapiclient.discovery.build("youtube", "v3", developerKey="AIzaSyA3SsojZ4SpVBDOdcUzAHLf5Ec9AUXoLBQ")
+    youtube = googleapiclient.discovery.build("youtube", "v3", developerKey="Developer Key")
 
     playlist_stats = []
 
