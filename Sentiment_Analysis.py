@@ -4,18 +4,64 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-data = pd.read_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
-creators = ["HandOfBlood", "PietSmiet", "Maxim", "GrummelFritz"]
+import seaborn as sns
+
+#data = pd.read_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
+
+#HandOfBloodStatsSubtitles = pd.read_csv('VideoStatisiken/HandOfBloodStatsSubtitles', index_col=0)
+#PietSmietStatsSubtitles = pd.read_csv('VideoStatisiken/PietSmietStatsSubtitles', index_col=0)
+#MaximStatsSubtitles = pd.read_csv('VideoStatisiken/MaximStatsSubtitles', index_col=0)
+#GrummelFritzStatsSubtitles = pd.read_csv('VideoStatisiken/GrummelFritzStatsSubtitles', index_col=0)
+#BeamStatsSubtitles = pd.read_csv('VideoStatisiken/BeamStatsSubtitles', index_col=0)
+
+
+creators = ["HandOfBlood", "PietSmiet", "Maxim", "GrummelFritz", "Beam"]
 
 polarity = lambda x: TextBlobDE(x).sentiment.polarity
 subjectivity = lambda x: TextBlobDE(x).sentiment.subjectivity
 
+#HandOfBloodStatsSubtitles['subjectivity'] = HandOfBloodStatsSubtitles['subtitles'].apply(subjectivity)
+#HandOfBloodStatsSubtitles['polarity'] = HandOfBloodStatsSubtitles['subtitles'].apply(polarity)
+#HandOfBloodStatsSubtitles.to_csv('VideoStatisiken/HandOfBloodPolSubj')
+
+#PietSmietStatsSubtitles['subjectivity'] = PietSmietStatsSubtitles['subtitles'].apply(subjectivity)
+#PietSmietStatsSubtitles['polarity'] = PietSmietStatsSubtitles['subtitles'].apply(polarity)
+#PietSmietStatsSubtitles.to_csv('VideoStatisiken/PietSmietPolSubj')
+
+#MaximStatsSubtitles['subjectivity'] = MaximStatsSubtitles['subtitles'].apply(subjectivity)
+#MaximStatsSubtitles['polarity'] = MaximStatsSubtitles['subtitles'].apply(polarity)
+#MaximStatsSubtitles.to_csv('VideoStatisiken/MaximPolSubj')
+
+#GrummelFritzStatsSubtitles['subjectivity'] = GrummelFritzStatsSubtitles['subtitles'].apply(subjectivity)
+#GrummelFritzStatsSubtitles['polarity'] = GrummelFritzStatsSubtitles['subtitles'].apply(polarity)
+#GrummelFritzStatsSubtitles.to_csv('VideoStatisiken/GrummelFritzPolSubj')
+
+#BeamStatsSubtitles['subjectivity'] = BeamStatsSubtitles['subtitles'].apply(subjectivity)
+#BeamStatsSubtitles['polarity'] = BeamStatsSubtitles['subtitles'].apply(polarity)
+#BeamStatsSubtitles.to_csv('VideoStatisiken/BeamPolSubj')
+
 #data['subjectivity'] = data['subtitles'].apply(subjectivity)
 #data['polarity'] = data['subtitles'].apply(polarity)
-
-print(data)
-
 #data.to_pickle("Corpus_Dokument-Term_Matrix/PolSubj.pkl")
+
+HandOfBloodPolSubj = pd.read_csv('VideoStatisiken/HandOfBloodPolSubj')
+PietSmietSubtitlesPolSubj = pd.read_csv('VideoStatisiken/PietSmietPolSubj')
+MaximPolSubj = pd.read_csv('VideoStatisiken/MaximPolSubj')
+GrummelFritzPolSubj = pd.read_csv('VideoStatisiken/GrummelFritzPolSubj')
+BeamPolSubj = pd.read_csv('VideoStatisiken/BeamPolSubj')
+
+creator_list = [(HandOfBloodPolSubj, "HandOfBlood"), (PietSmietSubtitlesPolSubj, "PietSmiet"), (MaximPolSubj, "Maxim"),
+                (GrummelFritzPolSubj, "GrummelFritz"), (BeamPolSubj, "Beam")]
+
+fig, axes = plt.subplots(nrows=5, ncols=2, figsize=(20, 90), sharey=True)
+fig.subplots_adjust(hspace=.8, wspace=.3)
+i = 0
+for creator in creator_list:
+    sns.lineplot(data=creator[0], ax=axes[i][0], x=creator[0].index, y='polarity').set(title=creator[1],xlabel="Video",ylabel="Polarität")
+    sns.scatterplot(data=creator[0], ax=axes[i][1], x='polarity', y='likeCount').set(title=creator[1],xlabel="Polarität", ylabel="Likes")
+    i = i+1
+
+plt.show()
 
 plt.rcParams['figure.figsize'] = [10, 8]
 

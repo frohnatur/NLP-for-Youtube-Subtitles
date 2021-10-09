@@ -31,11 +31,15 @@ def get_video_subtitles(video_ids, directory):
     formatter = TextFormatter()
     count = 0
     for item in video_ids:
-        video_transcript = YouTubeTranscriptApi.get_transcript(item, languages=['de'])
-        formatted = formatter.format_transcript(video_transcript)
+        try:
+            video_transcript = YouTubeTranscriptApi.get_transcript(item, languages=['de'])
+            formatted = formatter.format_transcript(video_transcript)
 
-        with open(directory + '/video' + str(count) + '.txt', 'w', encoding='utf-8') as file:
-            file.write(formatted)
+            with open(directory + '/video' + str(count) + '.txt', 'w', encoding='utf-8') as file:
+                file.write(formatted)
+        except:
+               with open(directory + '/video' + str(count) + '.txt', 'w', encoding='utf-8') as file:
+                  file.write("NoSubtitles")
         count += 1
 
 def get_video_statistics(video_ids):
@@ -57,13 +61,11 @@ def get_video_statistics(video_ids):
         response_snippet = response['items'][0]['snippet']
 
         video_stats["title"] = response_snippet["title"]
-        print(response_snippet["title"])
 
         stats_list = ['favoriteCount', 'viewCount', 'likeCount',
                           'dislikeCount', 'commentCount']
 
         for stat in stats_list:
-            print(response_statistics[stat])
             try:
                 video_stats[stat] = response_statistics[stat]
             except:

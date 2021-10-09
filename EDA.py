@@ -81,7 +81,7 @@ for creator in data.columns:
     uniques = data[creator].to_numpy().nonzero()[0].size
     unique_list.append(uniques)
 
-creators = ["HandOfBlood", "PietSmiet", "Maxim", "GrummelFritz"]
+creators = ["HandOfBlood", "PietSmiet", "Maxim", "GrummelFritz", "Beam"]
 
 data_words = pd.DataFrame(list(zip(creators, unique_list)), columns=['creator', 'unique_words'])
 data_unique_sort = data_words.sort_values(by='unique_words', ascending=False)
@@ -108,8 +108,8 @@ for i, creator in enumerate(data_signature_words.index):
     x = data_signature_words.scheiße.loc[creator]
     y = data_signature_words.signature.loc[creator]
     plt.scatter(x, y, color='blue')
-    plt.text(x + 1.5, y + 0.5, creators[i], fontsize=10)
-    plt.xlim(-5, 400)
+    plt.text(x - 20, y - 20, creators[i], fontsize=10)
+    plt.xlim(-5, 500)
 
 plt.title('Anzahl Schimpf- und Signaturwörter', fontsize=20)
 plt.xlabel('Anzahl \"scheiße\"', fontsize=15)
