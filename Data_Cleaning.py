@@ -106,7 +106,7 @@ data_dtm.index = data_clean.index
 
 print(data_dtm)
 
-data_clean.to_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
-data_dtm.to_pickle("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix.pkl")
+data_clean.to_csv('Corpus_Dokument-Term_Matrix/Corpus.csv')
+data_dtm.to_csv("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix.csv")
 pickle.dump(cv, open("Corpus_Dokument-Term_Matrix/Count_Vektorizer.pkl", "wb"))
 

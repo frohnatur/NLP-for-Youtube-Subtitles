@@ -15,12 +15,12 @@ print(data.head())
 #Liste mit meist genutzten Wörtern erstellen
 top_dict = {}
 for column in data.columns:
-    top = data[column].sort_values(ascending=False).head(30)
+    top = data[column].sort_values(ascending=False).head(40)
     top_dict[column] = list(zip(top.index, top.values))
 
 for creator, top_words in top_dict.items():
     print(creator)
-    print(', '.join([word for word, count in top_words[0:29]]))
+    print(', '.join([word for word, count in top_words[0:40]]))
     print('---')
 
 #Welche meist genutzten Wörter werden von wie vielen Creatorn genutzt?
@@ -33,7 +33,7 @@ for creator in data.columns:
 print(Counter(words).most_common())
 
 #Meist genutzte Wörter, die von mehr als der Hälfte benutzt werden entfernen und neue Dokument-Term-Matrix erstellen
-add_stop_words = [word for word, count in Counter(words).most_common() if count > 1]
+add_stop_words = [word for word, count in Counter(words).most_common() if count > 2]
 print(add_stop_words)
 
 data_clean = pd.read_pickle('Corpus_Dokument-Term_Matrix/Corpus.pkl')
@@ -48,17 +48,18 @@ data_stop.index = data_clean.index
 
 pickle.dump(cv, open("Corpus_Dokument-Term_Matrix/Count_Vektorizer_Total_Stopwords.pkl", "wb"))
 data_stop.to_pickle("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix_Total_StopWords.pkl")
+data_stop.to_csv("Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix_Total_StopWords.csv")
 
 print(data_stop)
 data_stop = data_stop.transpose()
 top_dict_stop = {}
 for column in data_stop.columns:
-    top = data_stop[column].sort_values(ascending=False).head(60)
+    top = data_stop[column].sort_values(ascending=False).head(15)
     top_dict_stop[column] = list(zip(top.index, top.values))
 
 for creator, top_words in top_dict_stop.items():
     print(creator)
-    print(', '.join([word for word, count in top_words[30:59]]))
+    print(', '.join([word for word, count in top_words[0:15]]))
     print('---')
 
 words_stop = []
@@ -92,7 +93,6 @@ y_pos = np.arange(len(data_words))
 
 plt.barh(y_pos, data_unique_sort.unique_words, align='center')
 plt.yticks(y_pos, data_unique_sort.creator)
-plt.title('Anzahl einzigartiger Wörter', fontsize=20)
 
 plt.show()
 

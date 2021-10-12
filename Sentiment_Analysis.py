@@ -53,14 +53,14 @@ BeamPolSubj = pd.read_csv('VideoStatisiken/BeamPolSubj')
 creator_list = [(HandOfBloodPolSubj, "HandOfBlood"), (PietSmietSubtitlesPolSubj, "PietSmiet"), (MaximPolSubj, "Maxim"),
                 (GrummelFritzPolSubj, "GrummelFritz"), (BeamPolSubj, "Beam")]
 
-fig, axes = plt.subplots(nrows=5, ncols=2, figsize=(20, 90), sharey=True)
+fig, axes = plt.subplots(nrows=5, ncols=3, figsize=(20, 90))
 fig.subplots_adjust(hspace=.8, wspace=.3)
 i = 0
 for creator in creator_list:
-    sns.lineplot(data=creator[0], ax=axes[i][0], x=creator[0].index, y='polarity').set(title=creator[1],xlabel="Video",ylabel="Polarität")
-    sns.scatterplot(data=creator[0], ax=axes[i][1], x='polarity', y='likeCount').set(title=creator[1],xlabel="Polarität", ylabel="Likes")
+    sns.lineplot(data=creator[0], ax=axes[i][0], x=creator[0].index, y='polarity').set(title=creator[1], xlabel="Video",ylabel="Polarität")
+    sns.scatterplot(data=creator[0], ax=axes[i][1], x='polarity', y='likeCount').set(title=creator[1], xlabel="Polarität", ylabel="Likes")
+    sns.scatterplot(data=creator[0], ax=axes[i][2], x='polarity', y='dislikeCount').set(title=creator[1], xlabel="Polarität", ylabel="Dislikes")
     i = i+1
-
 plt.show()
 
 plt.rcParams['figure.figsize'] = [10, 8]
