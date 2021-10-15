@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def get_video_ids(playlist_id):
-    youtube = googleapiclient.discovery.build("youtube", "v3", developerKey="Developer Key")
+    youtube = googleapiclient.discovery.build("youtube", "v3", developerKey="AIzaSyA3SsojZ4SpVBDOdcUzAHLf5Ec9AUXoLBQ")
 
     request = youtube.playlistItems().list(
         part="snippet",
@@ -43,7 +43,7 @@ def get_video_subtitles(video_ids, directory):
         count += 1
 
 def get_video_statistics(video_ids):
-    youtube = googleapiclient.discovery.build("youtube", "v3", developerKey="Developer Key")
+    youtube = googleapiclient.discovery.build("youtube", "v3", developerKey="AIzaSyA3SsojZ4SpVBDOdcUzAHLf5Ec9AUXoLBQ")
 
     playlist_stats = []
 
