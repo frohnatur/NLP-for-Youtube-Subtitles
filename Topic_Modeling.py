@@ -51,3 +51,19 @@ print(ldana.print_topics()[3])
 
 corpus_transformed = ldana[corpusna]
 print(list(zip([a for [(a,b)] in corpus_transformed], data_dtmna.index)))
+
+def format_topics_sentences(ldamodel, corpus):
+    sent_topics_df = pd.DataFrame()
+    for i, row in enumerate(ldamodel[corpus]):
+        row = sorted(row, key=lambda x: (x[1]), reverse=True)
+        for j, (topic_num, prop_topic) in enumerate(row):
+            if j == 0:
+                wp = ldamodel.show_topic(topic_num)
+                topic_keywords = ", ".join([word for word, prop in wp])
+                sent_topics_df = sent_topics_df.append(pd.Series([int(topic_num), round(prop_topic,4), topic_keywords]), ignore_index=True)
+            else:
+                break
+    sent_topics_df.columns = ['Dominant_Topic', 'Perc_Contribution', 'Topic_Keywords']
+    return(sent_topics_df)
+
+print(format_topics_sentences(ldana, corpusna)[["Dominant_Topic", "Perc_Contribution"]])
