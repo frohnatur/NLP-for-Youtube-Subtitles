@@ -6,6 +6,7 @@ from nltk import word_tokenize, pos_tag
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 
+# test
 data = pd.read_pickle('Corpus_Dokument-Term_Matrix/Dokument-Term-Matrix_Total_StopWords.pkl')
 tdm = data.transpose()
 
